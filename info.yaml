@@ -1,3 +1,4 @@
+---
 # Tiny Tapeout project information
 project:
   title: "ChaChaASIC"
@@ -6,17 +7,8 @@ project:
   description: "Encrypts Datastream"
   language: "verilog"
   clock_hz: 25000000
-
-  # How many tiles your design occupies? A single tile is about 167x108 µm.
-  # Valid values: 1x1, 1x2, 2x2, 3x2, 4x2, 6x2 or 8x2
   tiles: "4x2"
-
-  # Your top module name must start with "tt_um_".
-  # Make it unique by including your GitHub username
   top_module: "tt_um_mmonugiancpp"
-
-  # List your project's source files here.
-  # Files must be in ./src and listed one per line.
   source_files:
     - "tt_um_mmonugiancpp.v"
     - "ChaCha_Engine.v"
@@ -29,10 +21,7 @@ project:
     - "ChaChaRamEn.v"
     - "ChaChaShiftRegister.v"
 
-# The pinout of your project.
-# Leave unused pins blank. DO NOT delete or add any pins.
 pinout:
-  # Inputs
   "ui[0]": "data_in0"
   "ui[1]": "data_in1"
   "ui[2]": "data_in2"
@@ -42,7 +31,6 @@ pinout:
   "ui[6]": "data_in6"
   "ui[7]": "data_in7"
 
-  # Outputs
   "uo[0]": "data_out0"
   "uo[1]": "data_out1"
   "uo[2]": "data_out2"
@@ -52,7 +40,6 @@ pinout:
   "uo[6]": "data_out6"
   "uo[7]": "data_out7"
 
-  # Bidirectional pins
   "uio[0]": "start"
   "uio[1]": "plain_valid"
   "uio[2]": "cypher_ready"
@@ -62,5 +49,4 @@ pinout:
   "uio[6]": ""
   "uio[7]": ""
 
-# Do not change!
 yaml_version: 6
