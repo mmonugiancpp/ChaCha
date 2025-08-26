@@ -16,12 +16,36 @@ module tt_um_example (
     input  wire       rst_n     // reset_n - low to reset
 );
 
+  assign uio_oe = 8'b11111000;
+
+  ChaChaEncryption mybaby(
+                clk,
+                ~rst_n,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                uio_in[0],
+                ui_in,
+                uio_in[1],
+                uio_out[3],
+                uo_out,
+                uio_out[4],
+                uio_in[2]
+  );
   // All output pins must be assigned. If not used, assign to 0.
-  assign uo_out  = ui_in + uio_in;  // Example: ou_out is the sum of ui_in and uio_in
-  assign uio_out = 0;
-  assign uio_oe  = 0;
+  assign uio_out[7:5] = 3'b000;
+  assign uio_out[2:0] = 3'b000;
 
   // List all unused inputs to prevent warnings
-  wire _unused = &{ena, clk, rst_n, 1'b0};
+  //wire _unused = &{ena, clk, rst_n, 1'b0};
 
 endmodule
