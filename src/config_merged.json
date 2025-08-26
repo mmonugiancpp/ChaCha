@@ -28,16 +28,16 @@
   "MAGIC_WRITE_LEF_PINONLY": 1,
   "DESIGN_NAME": "tt_um_mmonugiancpp",
   "VERILOG_FILES": [
-    "dir::tt_um_mmonugiancpp.sv",
-    "dir::ChaCha_Engine.sv",
-    "dir::ChaCha_Shifter.sv",
-    "dir::ChaCha_Shifter_1.sv",
-    "dir::ChaCha_Shifter_2.sv",
-    "dir::ChaCha_Shifter_3.sv",
-    "dir::ChaChaEncryption.sv",
-    "dir::ChaChaQuarterRound.sv",
-    "dir::ChaChaRamEn.sv",
-    "dir::ChaChaShiftRegister.sv"
+    "dir::tt_um_mmonugiancpp.v",
+    "dir::ChaCha_Engine.v",
+    "dir::ChaCha_Shifter.v",
+    "dir::ChaCha_Shifter_1.v",
+    "dir::ChaCha_Shifter_2.v",
+    "dir::ChaCha_Shifter_3.v",
+    "dir::ChaChaEncryption.v",
+    "dir::ChaChaQuarterRound.v",
+    "dir::ChaChaRamEn.v",
+    "dir::ChaChaShiftRegister.v"
   ],
   "DIE_AREA": "0 0 854.40 313.74",
   "FP_DEF_TEMPLATE": "dir::../tt/ihp/def/tt_block_4x2_pgvdd.def"
