@@ -17,7 +17,7 @@ project:
   # Source files must be in ./src and you must list each source file separately, one per line.
   # Don't forget to also update `PROJECT_SOURCES` in test/Makefile.
   source_files:
-    - "project.v"
+    - "tt_um_mmonugiancpp.v"
     - "ChaCha_Engine.sv"
     - "ChaCha_Shifter.sv"
     - "ChaCha_Shifter_1.sv"
@@ -63,4 +63,5 @@ pinout:
 
 # Do not change!
 yaml_version: 6
+
 
