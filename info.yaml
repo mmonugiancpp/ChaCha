@@ -1,4 +1,4 @@
-lo# Tiny Tapeout project information
+# Tiny Tapeout project information
 project:
   title:        "ChaChaASIC"      # Project title
   author:       "MMonugian"      # Your name
@@ -63,6 +63,7 @@ pinout:
 
 # Do not change!
 yaml_version: 6
+
 
 
 
