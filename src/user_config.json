@@ -1,7 +1,7 @@
 {
-  "DESIGN_NAME": "tt_um_example",
+  "DESIGN_NAME": "tt_um_mmonugiancpp",
   "VERILOG_FILES": [
-    "dir::project.v",
+    "dir::tt_um_mmonugiancpp.sv",
     "dir::ChaCha_Engine.sv",
     "dir::ChaCha_Shifter.sv",
     "dir::ChaCha_Shifter_1.sv",
