@@ -26,9 +26,9 @@
   "RT_MAX_LAYER": "Metal5",
   "MAGIC_DEF_LABELS": 0,
   "MAGIC_WRITE_LEF_PINONLY": 1,
-  "DESIGN_NAME": "tt_um_example",
+  "DESIGN_NAME": "tt_um_mmonugiancpp",
   "VERILOG_FILES": [
-    "dir::project.v",
+    "dir::tt_um_mmonugiancpp.sv",
     "dir::ChaCha_Engine.sv",
     "dir::ChaCha_Shifter.sv",
     "dir::ChaCha_Shifter_1.sv",
