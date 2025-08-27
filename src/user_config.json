@@ -11,6 +11,8 @@
     "dir::ChaChaQuarterRound.v",
     "dir::ChaChaRamEn.v",
     "dir::ChaChaShiftRegister.v"
+    "dir::MemoryManager.v"
+    "dir::SPI_Slave.v"
   ],
   "DIE_AREA": "0 0 854.40 313.74",
   "FP_DEF_TEMPLATE": "dir::../tt/ihp/def/tt_block_4x2_pgvdd.def"
