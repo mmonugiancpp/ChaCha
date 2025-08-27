@@ -49,6 +49,9 @@ module MemoryManager(
     output reg          start
 );
 
+assign i_TX_DV = 1'b0;
+assign i_TX_Byte = 8'd0;
+
 reg [7:0] keys [31:0]; // ordered smallest up, keys[0] is the lower 8 bits of io_key_0
 reg [7:0] nonces [11:0]; // ordered likewise, nonces[0] is the lower 8 bits of io_nonce_0
 reg [7:0] pos [3:0];
