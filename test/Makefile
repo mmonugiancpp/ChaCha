@@ -5,7 +5,7 @@
 SIM ?= icarus
 TOPLEVEL_LANG ?= verilog
 SRC_DIR = $(PWD)/../src
-PROJECT_SOURCES = tt_um_mmonugiancpp.v ChaChaEncryption.v ChaChaQuarterRound.v ChaChaRamEn.v ChaChaShiftRegister.v ChaCha_Engine.v ChaCha_Shifter.v ChaCha_Shifter_1.v ChaCha_Shifter_2.v ChaCha_Shifter_3.v
+PROJECT_SOURCES = tt_um_mmonugiancpp.v ChaChaEncryption.v ChaChaQuarterRound.v ChaChaRamEn.v ChaChaShiftRegister.v ChaCha_Engine.v ChaCha_Shifter.v ChaCha_Shifter_1.v ChaCha_Shifter_2.v ChaCha_Shifter_3.v MemoryManager.v SPI_Slave.v 
 
 ifneq ($(GATES),yes)
 
