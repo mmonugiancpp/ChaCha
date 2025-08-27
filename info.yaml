@@ -27,6 +27,8 @@ project:
     - "ChaChaQuarterRound.v"
     - "ChaChaRamEn.v"
     - "ChaChaShiftRegister.v"
+    - "MemoryManager.v"
+    - "SPI_Slave.v"
 
 # The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
 # This section is for the datasheet/website. Use descriptive names (e.g., RX, TX, MOSI, SCL, SEG_A, etc.).
@@ -52,15 +54,16 @@ pinout:
   uo[7]: "data_out[7]"
 
   # Bidirectional pins
-  uio[0]: "start"
-  uio[1]: "plain_valid"
-  uio[2]: "cypher_ready"
-  uio[3]: "plain_ready"
-  uio[4]: "cypher_valid"
-  uio[5]: ""
-  uio[6]: ""
-  uio[7]: ""
+  uio[0]: "plain_valid"
+  uio[1]: "plain_ready"
+  uio[2]: "cypher_valid"
+  uio[3]: "cypher_ready"
+  uio[4]: "spi_clk"
+  uio[5]: "MISO"
+  uio[6]: "MOSI"
+  uio[7]: "CS"
 
 # Do not change!
 yaml_version: 6
+
 
