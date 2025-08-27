@@ -21,7 +21,8 @@ module ChaChaShiftRegister(
   input         io_load,
                 io_shift_right,
   output [31:0] io_output,
-  output        io_empty
+  output        io_empty,
+  output [4:0]  io_count_out
 );
 
   reg [31:0] shiftRegister_0;
@@ -102,5 +103,6 @@ module ChaChaShiftRegister(
   end // always @(posedge)
   assign io_output = shiftRegister_0;
   assign io_empty = count == 5'h0;
+  assign io_count_out = count;
 endmodule
 

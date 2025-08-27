@@ -24,9 +24,9 @@ module ChaChaEncryption(
 );
 
   wire            pull;
-  wire [31:0]     _shiftregkey_io_output;
   wire [31:0]     _shiftreg_io_output;
   wire            _shiftreg_io_empty;
+  wire [4:0]      _shiftreg_io_count_out;
   wire [31:0]     _engine_io_keystream_0;
   wire [31:0]     _engine_io_keystream_1;
   wire [31:0]     _engine_io_keystream_2;
@@ -46,15 +46,83 @@ module ChaChaEncryption(
   reg             state;
   reg  [4:0]      counter;
   reg  [31:0]     position_reg;
-  wire            _shiftregkey_io_load_T = _shiftreg_io_empty & pull;
+  wire            _shiftreg_io_load_T = _shiftreg_io_empty & pull;
   wire [31:0]     _position_reg_T = position_reg + 32'h1;
   wire            _GEN = io_start | ~state;
   assign pull = state & counter == 5'h14;
   reg  [1:0]      output_index;
   wire            _GEN_0 = ~_shiftreg_io_empty & io_plain_valid;
-  wire            _GEN_1 = _GEN_0 & output_index == 2'h0;
-  wire [31:0]     _CypherMuxIn_T = _shiftreg_io_output + _shiftregkey_io_output;
-  wire [3:0][7:0] _GEN_2 =
+  wire [31:0]     _CypherMuxIn_T =
+    _shiftreg_io_output
+    + (_shiftreg_io_count_out == 5'h10
+         ? 32'h61707865
+         : _shiftreg_io_count_out == 5'hF
+             ? 32'h3320646E
+             : _shiftreg_io_count_out == 5'hE
+                 ? 32'h79622D32
+                 : _shiftreg_io_count_out == 5'hD
+                     ? 32'h6B206574
+                     : _shiftreg_io_count_out == 5'hC
+                         ? {io_key_0[7:0],
+                            io_key_0[15:8],
+                            io_key_0[23:16],
+                            io_key_0[31:24]}
+                         : _shiftreg_io_count_out == 5'hB
+                             ? {io_key_1[7:0],
+                                io_key_1[15:8],
+                                io_key_1[23:16],
+                                io_key_1[31:24]}
+                             : _shiftreg_io_count_out == 5'hA
+                                 ? {io_key_2[7:0],
+                                    io_key_2[15:8],
+                                    io_key_2[23:16],
+                                    io_key_2[31:24]}
+                                 : _shiftreg_io_count_out == 5'h9
+                                     ? {io_key_3[7:0],
+                                        io_key_3[15:8],
+                                        io_key_3[23:16],
+                                        io_key_3[31:24]}
+                                     : _shiftreg_io_count_out == 5'h8
+                                         ? {io_key_4[7:0],
+                                            io_key_4[15:8],
+                                            io_key_4[23:16],
+                                            io_key_4[31:24]}
+                                         : _shiftreg_io_count_out == 5'h7
+                                             ? {io_key_5[7:0],
+                                                io_key_5[15:8],
+                                                io_key_5[23:16],
+                                                io_key_5[31:24]}
+                                             : _shiftreg_io_count_out == 5'h6
+                                                 ? {io_key_6[7:0],
+                                                    io_key_6[15:8],
+                                                    io_key_6[23:16],
+                                                    io_key_6[31:24]}
+                                                 : _shiftreg_io_count_out == 5'h5
+                                                     ? {io_key_7[7:0],
+                                                        io_key_7[15:8],
+                                                        io_key_7[23:16],
+                                                        io_key_7[31:24]}
+                                                     : _shiftreg_io_count_out == 5'h4
+                                                         ? position_reg - 32'h1
+                                                         : _shiftreg_io_count_out == 5'h3
+                                                             ? {io_nonce_0[7:0],
+                                                                io_nonce_0[15:8],
+                                                                io_nonce_0[23:16],
+                                                                io_nonce_0[31:24]}
+                                                             : _shiftreg_io_count_out == 5'h2
+                                                                 ? {io_nonce_1[7:0],
+                                                                    io_nonce_1[15:8],
+                                                                    io_nonce_1[23:16],
+                                                                    io_nonce_1[31:24]}
+                                                                 : _shiftreg_io_count_out == 5'h1
+                                                                     ? {io_nonce_2[7:0],
+                                                                        io_nonce_2[15:8],
+                                                                        io_nonce_2[23:16],
+                                                                        io_nonce_2[31:24]}
+                                                                     : _shiftreg_io_count_out == 5'h0
+                                                                         ? 32'h61707865
+                                                                         : 32'h0);
+  wire [3:0][7:0] _GEN_1 =
     {{_CypherMuxIn_T[7:0]},
      {_CypherMuxIn_T[15:8]},
      {_CypherMuxIn_T[23:16]},
@@ -80,7 +148,7 @@ module ChaChaEncryption(
         counter <= 5'h0;
       if (_GEN)
         position_reg <= io_position;
-      else if (state & _shiftregkey_io_load_T)
+      else if (state & _shiftreg_io_load_T)
         position_reg <= _position_reg_T;
       if (_GEN_0)
         output_index <= output_index - 2'h1;
@@ -120,7 +188,7 @@ module ChaChaEncryption(
     .io_keystream_13 (_engine_io_keystream_13),
     .io_keystream_14 (_engine_io_keystream_14),
     .io_keystream_15 (_engine_io_keystream_15),
-    .io_push         (io_start | state & _shiftregkey_io_load_T),
+    .io_push         (io_start | state & _shiftreg_io_load_T),
     .io_run          (_shiftreg_io_empty | ~pull)
   );
   ChaChaShiftRegister shiftreg (
@@ -142,40 +210,14 @@ module ChaChaEncryption(
     .io_inputs_13   (_engine_io_keystream_13),
     .io_inputs_14   (_engine_io_keystream_14),
     .io_inputs_15   (_engine_io_keystream_15),
-    .io_load        (_shiftregkey_io_load_T),
-    .io_shift_right (_GEN_1),
+    .io_load        (_shiftreg_io_load_T),
+    .io_shift_right (_GEN_0 & output_index == 2'h0),
     .io_output      (_shiftreg_io_output),
-    .io_empty       (_shiftreg_io_empty)
-  );
-  ChaChaShiftRegister shiftregkey (
-    .clock          (clock),
-    .reset          (reset),
-    .io_inputs_0    (32'h61707865),
-    .io_inputs_1    (32'h3320646E),
-    .io_inputs_2    (32'h79622D32),
-    .io_inputs_3    (32'h6B206574),
-    .io_inputs_4    ({io_key_0[7:0], io_key_0[15:8], io_key_0[23:16], io_key_0[31:24]}),
-    .io_inputs_5    ({io_key_1[7:0], io_key_1[15:8], io_key_1[23:16], io_key_1[31:24]}),
-    .io_inputs_6    ({io_key_2[7:0], io_key_2[15:8], io_key_2[23:16], io_key_2[31:24]}),
-    .io_inputs_7    ({io_key_3[7:0], io_key_3[15:8], io_key_3[23:16], io_key_3[31:24]}),
-    .io_inputs_8    ({io_key_4[7:0], io_key_4[15:8], io_key_4[23:16], io_key_4[31:24]}),
-    .io_inputs_9    ({io_key_5[7:0], io_key_5[15:8], io_key_5[23:16], io_key_5[31:24]}),
-    .io_inputs_10   ({io_key_6[7:0], io_key_6[15:8], io_key_6[23:16], io_key_6[31:24]}),
-    .io_inputs_11   ({io_key_7[7:0], io_key_7[15:8], io_key_7[23:16], io_key_7[31:24]}),
-    .io_inputs_12   (position_reg),
-    .io_inputs_13
-      ({io_nonce_0[7:0], io_nonce_0[15:8], io_nonce_0[23:16], io_nonce_0[31:24]}),
-    .io_inputs_14
-      ({io_nonce_1[7:0], io_nonce_1[15:8], io_nonce_1[23:16], io_nonce_1[31:24]}),
-    .io_inputs_15
-      ({io_nonce_2[7:0], io_nonce_2[15:8], io_nonce_2[23:16], io_nonce_2[31:24]}),
-    .io_load        (_shiftregkey_io_load_T),
-    .io_shift_right (_GEN_1),
-    .io_output      (_shiftregkey_io_output),
-    .io_empty       (/* unused */)
+    .io_empty       (_shiftreg_io_empty),
+    .io_count_out   (_shiftreg_io_count_out)
   );
   assign io_plain_ready = ~_shiftreg_io_empty;
-  assign io_cyphertext = _GEN_2[output_index] ^ io_plaintext;
+  assign io_cyphertext = _GEN_1[output_index] ^ io_plaintext;
   assign io_cypher_valid = ~_shiftreg_io_empty;
 endmodule
 
