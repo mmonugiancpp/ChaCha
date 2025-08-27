@@ -36,9 +36,6 @@ wire rx_dv;
 wire [7:0] tx_byte;
 wire tx_dv;
 wire start;
-
-assign tx_byte = 8'd0;
-assign tx_dv = 1'b0;
     
 SPI_Slave #(.SPI_MODE(0)) spi_module
           (
@@ -115,6 +112,7 @@ SPI_Slave #(.SPI_MODE(0)) spi_module
     wire _unused = &{uio_in[2:1],uio_in[5] , 1'b0};
 
 endmodule
+
 
 
 
