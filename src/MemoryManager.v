@@ -73,7 +73,7 @@ reg [4:0] next_counter;
 
 // sequential logic for keys, nonces, and pos
 integer i;
-always @(posedge i_Clk) begin
+    always @(posedge i_Clk or negedge i_Rst_L) begin
     if (~i_Rst_L) begin // zero all registers on reset
         for (i = 0; i < 32; i = i + 1) begin
             keys[i] <= 8'd0;
@@ -99,7 +99,7 @@ always @(posedge i_Clk) begin
 end
 
 // sequential logic for state machine
-always @(posedge i_Clk) begin
+    always @(posedge i_Clk or negedge i_Rst_L) begin
     if(~i_Rst_L) begin
         counter <= 5'b00000;
         curr_state <= IDLE;
